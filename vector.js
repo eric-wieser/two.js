@@ -51,6 +51,9 @@ Vector.prototype = {
 	distanceTo: function(that) {
 		return this.subtract(that).magnitude();
 	},
+	angleTo: function(that) {
+		return Math.acos(this.dot(that) / (this.magnitude() * that.magnitude()))
+	},
 	lerp: function(that, t) {
 		return that.times(t).plus(this.times(1 - t));
 	},
