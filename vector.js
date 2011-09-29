@@ -49,7 +49,7 @@ Vector.prototype = {
 		return this.x * that.x + this.y * that.y;
 	},
 	distanceTo: function(that) {
-		return this.subtract(that).magnitude();
+		return this.minus(that).magnitude();
 	},
 	angleTo: function(that) {
 		return Math.acos(this.dot(that) / (this.magnitude() * that.magnitude()))
