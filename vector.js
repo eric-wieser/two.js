@@ -16,8 +16,7 @@ Vector.fromString = function(string) {
 		return null;
 	else
 		return new Vector(x, y);
-}
-Vector.prototype = {
+}Vector.prototype = {
 	magnitude: function() {
 		return Math.sqrt(this.dot(this));
 	},
@@ -36,10 +35,7 @@ Vector.prototype = {
 		return this;
 	},
 	minus: function(that) {
-		if(!that)
-			return new Vector(-this.x, -this.y);
-		else
-			return new Vector(this.x - that.x, this.y - that.y);
+		return new Vector(this.x - that.x, this.y - that.y);
 	},
 	minusEquals: function(that) {
 		this.x -= that.x;
@@ -75,6 +71,14 @@ Vector.prototype = {
 		}
 		return this;
 	},
+	negated: function() {
+		return new Vector(-this.x, -this.y);
+	},
+	negate: function() {
+		this.x = -this.x;
+		this.y = -this.y;
+		return this;
+	},
 	dot: function(that) {
 		return this.x * that.x + this.y * that.y;
 	},
@@ -105,3 +109,15 @@ Vector.zero = function() { return new Vector(0, 0) };
 Vector.i = function() { return new Vector(1, 0) };
 Vector.j = function() { return new Vector(0, 1) };
 Vector.NaN = function() { return new Vector(Number.NaN, Number.NaN) };
+
+Vector.prototype['+'] = Vector.prototype.plus
+Vector.prototype['-'] = Vector.prototype.minus
+Vector.prototype['*'] = Vector.prototype.times
+Vector.prototype['/'] = Vector.prototype.over
+
+Vector.prototype['+='] = Vector.prototype.plusEquals
+Vector.prototype['-='] = Vector.prototype.minusEquals
+Vector.prototype['*='] = Vector.prototype.timesEquals
+Vector.prototype['/='] = Vector.prototype.overEquals
+
+
