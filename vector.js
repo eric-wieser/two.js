@@ -30,11 +30,21 @@ Vector.prototype = {
 	plus: function(that) {
 		return new Vector(this.x + that.x, this.y + that.y);
 	},
+	plusEquals: function(that) {
+		this.x += that.x;
+		this.y += that.y;
+		return this;
+	},
 	minus: function(that) {
 		if(!that)
 			return new Vector(-this.x, -this.y);
 		else
 			return new Vector(this.x - that.x, this.y - that.y);
+	},
+	minusEquals: function(that) {
+		this.x -= that.x;
+		this.y -= that.y;
+		return this;
 	},
 	times: function(factor) {
 		if(factor instanceof Vector)
@@ -42,8 +52,28 @@ Vector.prototype = {
 		else
 			return new Vector(this.x * factor, this.y * factor);
 	},
+	timesEquals: function(factor) {
+		if(factor instanceof Vector) {
+			this.x *= factor.x;
+			this.y *= factor.y;
+		} else {
+			this.x *= factor;
+			this.y *= factor;
+		}
+		return this;
+	},
 	over: function(factor) {
 		return new Vector(this.x / factor, this.y / factor);
+	},
+	overEquals: function(factor) {
+		if(factor instanceof Vector) {
+			this.x /= factor.x;
+			this.y /= factor.y;
+		} else {
+			this.x /= factor;
+			this.y /= factor;
+		}
+		return this;
 	},
 	dot: function(that) {
 		return this.x * that.x + this.y * that.y;
@@ -71,7 +101,7 @@ Vector.prototype = {
 	}
 };
 
-Vector.ZERO = new Vector(0, 0);
-Vector.I = new Vector(1, 0);
-Vector.J = new Vector(0, 1);
-Vector.NaN = new Vector(Number.NaN, Number.NaN);
+Vector.zero = function() { return new Vector(0, 0) };
+Vector.i = function() { return new Vector(1, 0) };
+Vector.j = function() { return new Vector(0, 1) };
+Vector.NaN = function() { return new Vector(Number.NaN, Number.NaN) };
