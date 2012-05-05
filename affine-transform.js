@@ -1,13 +1,15 @@
 function AffineTransform(v, m) {
 	if(v instanceof Matrix)
 		m = v, v = null;
-	this.matrix = m || Matrix.IDENTITY;
-	this.translation = v || Vector.ZERO;
+
+	this.matrix = m || Matrix.identity();
+	this.translation = v || Vector.zero();
 }
 
 AffineTransform.fromRotation = function(angle) {
 	return new AffineTransform(Matrix.fromRotation(angle));
 }
+
 AffineTransform.prototype = {
 	clone: function() {
 		return new AffineTransform(this.translation, this.matrix);
@@ -48,14 +50,14 @@ AffineTransform.prototype = {
 			factor = factor.toDiagonalMatrix();
 		scaled.matrix = this.matrix.times(factor);
 		if(center) {
-			scaled.translation = this.translation.minus(center).times(factor).minus(center);
+			scaled.translation = this.translation.minus(center).times(factor).plus(center);
 		}
 		return scaled;
 	},
 	toSVGTransformString: function() {
 		var m = this.matrix, v = this.translation;
-		return 'M'+m.a + ' ' + m.c + ' ' + m.b + ' ' + m.d + ' ' + v.x + ' ' + v.y
+		return 'M'+[m.a, m.c, m.b, m.d, v.x, v.y];//[m.a, m.b, v.x, m.c, m.d, v.y]
 	},
 };
 
-AffineTransform.IDENTITY = new AffineTransform();
+AffineTransform.identity = function() {return new AffineTransform()};

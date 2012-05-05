@@ -16,15 +16,25 @@ Vector.fromString = function(string) {
 		return null;
 	else
 		return new Vector(x, y);
-}Vector.prototype = {
+}
+Vector.prototype = {
+	set: function(x, y) {
+		this.x = x;
+		this.y = y;
+		return this;
+	},
 	magnitude: function() {
 		return Math.sqrt(this.dot(this));
 	},
 	angle: function() {
 		return Math.atan2(this.x, this.y);
 	},
-	unit: function() {
+	normalized: function() {
 		return this.times(1 / this.magnitude());
+	},
+	normalize: function() {
+		var len = this.magnitude();
+		return this.overEquals(len);
 	},
 	plus: function(that) {
 		return new Vector(this.x + that.x, this.y + that.y);
@@ -101,7 +111,7 @@ Vector.fromString = function(string) {
 		return '(' + this.x + ',' + this.y + ')';
 	},
 	clone: function() {
-		return new Vector(x, y);
+		return new Vector(this.x, this.y);
 	}
 };
 
@@ -119,5 +129,3 @@ Vector.prototype['+='] = Vector.prototype.plusEquals
 Vector.prototype['-='] = Vector.prototype.minusEquals
 Vector.prototype['*='] = Vector.prototype.timesEquals
 Vector.prototype['/='] = Vector.prototype.overEquals
-
-

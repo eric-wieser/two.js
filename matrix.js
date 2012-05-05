@@ -51,7 +51,6 @@ Matrix.prototype = {
 			return new Matrix(this.a * that, this.b * that, this.c * that, this.d * that);
 	},
 	toString: function() {
-		alert("...");
 		return "Matrix: [[" + this.a + "," + this.b + "],[" + this.c + "," + this.d + "]]";
 	},
 	equals: function(that) {
@@ -59,7 +58,7 @@ Matrix.prototype = {
 	}
 };
 
-Matrix.identity = new Matrix(1, 0, 0, 1);
-Matrix.rotate90 = new Matrix(0, 1, -1, 0);
-Matrix.rotate180 = new Matrix(-1, 0, 0, -1)
-Matrix.rotate270 = new Matrix(0, -1, 1, 0);
+Matrix.identity  = function() { return new Matrix( 1,  0,  0,  1); };
+Matrix.rotate90  = function() { return new Matrix( 0,  1, -1,  0); };
+Matrix.rotate180 = function() { return new Matrix(-1,  0,  0, -1); };
+Matrix.rotate270 = function() { return new Matrix( 0, -1,  1,  0); };
