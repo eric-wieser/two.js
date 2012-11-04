@@ -30,11 +30,10 @@ Vector.prototype = {
 		return Math.atan2(this.x, this.y);
 	},
 	normalized: function() {
-		return this.times(1 / this.magnitude());
+		return this.over(this.magnitude());
 	},
 	normalize: function() {
-		var len = this.magnitude();
-		return this.overEquals(len);
+		return this.overEquals(this.magnitude());
 	},
 	plus: function(that) {
 		return new Vector(this.x + that.x, this.y + that.y);
@@ -99,7 +98,10 @@ Vector.prototype = {
 		return Math.acos(this.dot(that) / (this.magnitude() * that.magnitude()))
 	},
 	lerp: function(that, t) {
-		return that.times(t).plus(this.times(1 - t));
+		return new Vector(
+			that.x * t + this.x * (1 - t),
+			that.y * t + this.y * (1 - t)
+		);
 	},
 	perp: function() {
 		return new Vector(-this.y, this.x);
